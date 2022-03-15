@@ -1,0 +1,18 @@
+SharUTokenSale.deployed().then(function(i){tokenSale=i})
+
+SharUToken.deployed().then(function(i){token=i})
+
+tokensAvailable=9000000
+
+
+web3.eth.getAccounts().then(function(i){accounts=i})
+
+accounts[0]
+
+admin = accounts[0]
+
+token.transfer(tokenSale.address, tokensAvailable, {from:admin})
+
+token.balanceOf(tokenSale.address)
+
+
