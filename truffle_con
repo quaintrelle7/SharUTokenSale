@@ -1,3 +1,7 @@
+npm run dev
+
+truffle migrate --reset
+
 SharUTokenSale.deployed().then(function(i){tokenSale=i})
 
 SharUToken.deployed().then(function(i){token=i})

@@ -33,6 +33,8 @@ App = {
             App.contracts.SharUTokenSale.setProvider(App.web3Provider);
             App.contracts.SharUTokenSale.deployed().then(function (sharUTokenSale) {
                 console.log("SharU Token Sale Address: ", sharUTokenSale.address);
+                $('#sharUTokenSaleAddress').html("Seller Account: " + sharUTokenSale.address);
+
             });
         }).done(function () {
             $.getJSON("SharUToken.json", function (sharUToken) {
@@ -40,6 +42,8 @@ App = {
                 App.contracts.SharUToken.setProvider(App.web3Provider);
                 App.contracts.SharUToken.deployed().then(function (sharUToken) {
                     console.log("SharU Token Address: ", sharUToken.address);
+                    $('#energyTransactionAddress').html("Energy Transaction Address: " + sharUToken.address);
+
 
                 });
                 return App.render();
@@ -50,19 +54,19 @@ App = {
 
     //listening for events emitted from contracts
 
-    listenForEvents: function () {
+    // listenForEvents: function () {
 
-        App.contracts.SharUTokenSale.deployed().then(function (instance) {
-            instance.Sell({
-                fromBlock: 0,
-                toBlock: 'latest',
-            }).watch(function (error, event) {
-                console.log("Event Triggered", event);
-                App.render();
-            })
-        })
+    //     App.contracts.SharUTokenSale.deployed().then(function (instance) {
+    //         instance.Sell({
+    //             fromBlock: 0,
+    //             toBlock: 'latest',
+    //         }).watch(function (error, event) {
+    //             console.log("Event Triggered", event);
+    //             App.render();
+    //         })
+    //     })
 
-    },
+    // },
 
     render: function () {
 
@@ -88,6 +92,7 @@ App = {
 
         App.contracts.SharUTokenSale.deployed().then(function (instance) {
             sharUTokenSaleInstance = instance;
+
             return sharUTokenSaleInstance.tokenPrice();
         }).then(function (tokenPrice) {
             console.log("tokenPrice: ", tokenPrice)
@@ -109,6 +114,7 @@ App = {
                 return sharUTokenInstance.balanceOf(App.account);
             }).then(function (balance) {
                 $('.sharu-balance').html(balance.toNumber());
+
                 //wait for Sell event
 
 
